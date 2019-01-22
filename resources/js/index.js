@@ -1,0 +1,1 @@
+/home/wanku/repos/laundry-front/src/index.js
