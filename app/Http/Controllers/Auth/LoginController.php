@@ -49,9 +49,7 @@ class LoginController extends Controller
         try {
             $user = Socialite::driver('vkontakte')->user();
         } catch (\Exception $e) {
-            return [
-                'auth' => false
-            ];
+            return redirect('/login');
         }
 
         $existingUser = User::where('vk_id', $user->id)->first();
@@ -65,10 +63,9 @@ class LoginController extends Controller
             $newUser->avatar          = $user->avatar;
             $newUser->save();
             auth()->login($newUser, true);
+            $existingUser = User::where('vk_id', $user->id)->first();
         }
         
-        return [
-            'auth' => true
-        ];
+        return redirect('/');
     }
 }
