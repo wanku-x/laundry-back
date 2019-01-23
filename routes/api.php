@@ -22,4 +22,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::prefix('user')->group(function () {
         Route::get('info', 'UserController@getUserInfo')->name('user_info');
     });
+
+    Route::prefix('dorm')->group(function () {
+        Route::get('list', 'DormController@getDormsList')->name('dorm_list');
+    });
 });
