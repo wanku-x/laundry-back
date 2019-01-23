@@ -17,6 +17,10 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->unsignedInteger('dorm_id')->nullable();
+            $table->foreign('dorm_id')
+                  ->references('id')
+                  ->on('dorms')
+                  ->onDelete('cascade');
             $table->unsignedInteger('floor_id')->nullable();
             $table->unsignedInteger('room_id')->nullable();
             $table->string('vk_id');
