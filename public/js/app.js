@@ -80759,8 +80759,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core */ "../laundry-front/node_modules/@material-ui/core/index.es.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "../laundry-front/node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components */ "../laundry-front/src/components/index.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Grid */ "../laundry-front/node_modules/@material-ui/core/Grid/index.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -80802,7 +80800,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding-top: 32px;\n  padding-bottom: 128px;\n  height: 100vh;\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding-top: 32px;\n  padding-bottom: 96px;\n  ", "\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -80812,7 +80810,6 @@ function _templateObject() {
 }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 
 
 
@@ -80842,22 +80839,32 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Settings)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
-      name: 'hai',
-      labelWidth: 0,
-      dorm: '',
-      floor: '',
-      room: '',
+      loaded: false,
+      dormId: null,
+      floorId: null,
+      roomId: null,
       dorms: [],
       floors: [],
       rooms: []
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidMount", function () {
-      //делаем запрос на сервер
       _this.setState({
-        dorms: ["Стремянный", "Ботаническая"],
-        floors: [1, 2, 3, 4, 5, 6],
-        rooms: [1, 2, 3, 4, 5, 6]
+        dormId: _this.props.dormId,
+        floorId: _this.props.floorId,
+        roomId: _this.props.roomId
+      }, function () {
+        Object(_components__WEBPACK_IMPORTED_MODULE_4__["requestGET"])('/api/dorm/list').then(function (res) {
+          _this.setState({
+            dorms: res
+          });
+        }).catch(function (err) {
+          console.log(err);
+        }).finally(function () {
+          _this.setState({
+            loaded: true
+          });
+        });
       });
     });
 
@@ -80871,10 +80878,10 @@ function (_Component) {
   _createClass(Settings, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         container: true,
         justify: "center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         item: true,
         xs: 12,
         md: 6
@@ -80886,18 +80893,16 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["InputLabel"], {
         htmlFor: "filled-dorm-simple"
       }, "\u041E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u0435"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Select"], {
-        value: this.state.dorm,
+        value: this.state.dormId,
         onChange: this.handleChange,
         input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["FilledInput"], {
           name: "dorm",
           id: "filled-dorm-simple"
         })
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
-        value: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.dorms.map(function (dorm) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.dorms.map(function (dorm) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
-          value: dorm
-        }, dorm);
+          value: dorm.id
+        }, dorm.name);
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledControl, {
         variant: "filled",
         style: {
@@ -80906,19 +80911,17 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["InputLabel"], {
         htmlFor: "filled-floor-simple"
       }, "\u042D\u0442\u0430\u0436"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Select"], {
-        disabled: !this.state.dorm,
-        value: this.state.floor,
+        disabled: !this.state.dormId,
+        value: this.state.floorId,
         onChange: this.handleChange,
         input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["FilledInput"], {
           name: "floor",
           id: "filled-floor-simple"
         })
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
-        value: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.floors.map(function (floor) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.floors.map(function (floor) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
-          value: floor
-        }, floor);
+          value: floor.id
+        }, floor.name);
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledControl, {
         variant: "filled",
         style: {
@@ -80927,26 +80930,26 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["InputLabel"], {
         htmlFor: "filled-room-simple"
       }, "\u041A\u043E\u043C\u043D\u0430\u0442\u0430"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Select"], {
-        disabled: !this.state.dorm || !this.state.floor,
-        value: this.state.room,
+        disabled: !this.state.dormId || !this.state.floorId,
+        value: this.state.roomId,
         onChange: this.handleChange,
         input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["FilledInput"], {
           name: "room",
           id: "filled-room-simple"
         })
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
-        value: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.rooms.map(function (room) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.rooms.map(function (room) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
-          value: room
-        }, room);
+          value: room.id
+        }, room.name);
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FabWrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Fab"], {
         variant: "extended",
         color: "primary",
-        disabled: !this.state.dorm || !this.state.floor || !this.state.room,
+        disabled: !this.state.dormId || !this.state.floorId || !this.state.roomId,
         component: react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
         to: "/"
-      }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C")))));
+      }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_4__["Loader"], {
+        isOpen: !this.state.loaded
+      }));
     }
   }]);
 
