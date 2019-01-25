@@ -16,14 +16,12 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('dorm_id')->nullable();
-            $table->foreign('dorm_id')
-                  ->references('id')
-                  ->on('dorms')
-                  ->onDelete('cascade');
-            $table->unsignedInteger('floor_id')->nullable();
             $table->unsignedInteger('room_id')->nullable();
-            $table->string('vk_id');
+            $table->foreign('room_id')
+                  ->references('id')
+                  ->on('rooms')
+                  ->onDelete('cascade');
+            $table->string('vk_id')->unique();
             $table->string('avatar')->nullable();
             $table->integer('role')->nullable();
             $table->rememberToken();
