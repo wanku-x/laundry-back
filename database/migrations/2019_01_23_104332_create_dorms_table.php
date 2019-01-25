@@ -15,7 +15,7 @@ class CreateDormsTable extends Migration
     {
         Schema::create('dorms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->time('time_start');
             $table->time('time_end');
             $table->timestamps();
