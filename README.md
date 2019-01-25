@@ -107,3 +107,69 @@ php artisan serve
 ```
 
 Если необходимо запустить на выделенном сервере, то вам достаточно склонировать содержимое проекта в корневую папку вашего сайта.
+
+## API
+
+### Вход и регистрация
+
+```
+/api/v1/login
+```
+
+### Модель User
+
+```
+/api/v1/users
+```
+```
+/api/v1/users/current
+```
+```
+/api/v1/users/{id}
+```
+```
+/api/v1/users/vk/{id}
+```
+
+### Модель Dorm
+
+```
+/api/v1/dorms/
+```
+```
+/api/v1/dorms/{id}
+```
+```
+/api/v1/dorms/{id}/floors
+```
+```
+/api/v1/dorms/{id}/floors/{number}
+```
+```
+/api/v1/dorms/{id}/floors/{number}/rooms
+```
+
+### Модель Floor
+
+```
+/api/v1/floors/
+```
+```
+/api/v1/floors/{id}
+```
+```
+/api/v1/floors/{id}/rooms
+```
+
+### Модель Room
+
+```
+/api/v1/rooms/
+```
+```
+/api/v1/rooms/{id}
+```
+
+## Фронтэнд
+
+Исходники фронтэнда лежат по адресу <https://github.com/dimaetu/laundry-front>
