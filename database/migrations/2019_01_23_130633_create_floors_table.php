@@ -15,6 +15,14 @@ class CreateFloorsTable extends Migration
     {
         Schema::create('floors', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('dorm_id')->nullable();
+            $table->foreign('dorm_id')
+                  ->references('id')
+                  ->on('dorms')
+                  ->onDelete('cascade');
+            $table->unsignedTinyInteger('number');
+            $table->unique(['dorm_id', 'number']);
+            $table->unsignedTinyInteger('washers');
             $table->timestamps();
         });
     }
