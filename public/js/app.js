@@ -79455,8 +79455,6 @@ function (_Component) {
         floorId: value.floor_id,
         roomId: value.room_id,
         role: value.role
-      }, function () {
-        console.log(_this.state);
       });
     });
 
@@ -80840,9 +80838,9 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
       loaded: false,
-      dormId: null,
-      floorId: null,
-      roomId: null,
+      dormId: '',
+      floorId: '',
+      roomId: '',
       dorms: [],
       floors: [],
       rooms: []
@@ -80869,7 +80867,9 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleChange", function (event) {
-      _this.setState(_defineProperty({}, event.target.name, event.target.value));
+      _this.setState(_defineProperty({}, event.target.name, event.target.value), function () {
+        console.log('Я сработал!!!');
+      });
     });
 
     return _this;
@@ -80891,15 +80891,17 @@ function (_Component) {
           marginBottom: 16
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["InputLabel"], {
-        htmlFor: "filled-dorm-simple"
+        htmlFor: "dorm"
       }, "\u041E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u0435"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["Select"], {
         value: this.state.dormId,
         onChange: this.handleChange,
         input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["FilledInput"], {
-          name: "dorm",
-          id: "filled-dorm-simple"
+          name: "dormId",
+          id: "dorm"
         })
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.dorms.map(function (dorm) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
+        value: ""
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.dorms.map(function (dorm) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], {
           value: dorm.id
         }, dorm.name);
@@ -80915,7 +80917,7 @@ function (_Component) {
         value: this.state.floorId,
         onChange: this.handleChange,
         input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["FilledInput"], {
-          name: "floor",
+          name: "floorId",
           id: "filled-floor-simple"
         })
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.floors.map(function (floor) {
@@ -80934,7 +80936,7 @@ function (_Component) {
         value: this.state.roomId,
         onChange: this.handleChange,
         input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["FilledInput"], {
-          name: "room",
+          name: "roomId",
           id: "filled-room-simple"
         })
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__["MenuItem"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", null, "\u041D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D\u043E")), this.state.rooms.map(function (room) {
