@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::prefix('users')->group(function () {
             Route::get('current', 'UserController@getCurrentUser')->name('user_current');
+            Route::post('current/update', 'UserController@updateCurrentUser')->name('update_user_current');
             // only admins for all routes
             Route::get('/', 'UserController@getUsers')->name('users');
             Route::get('{id}', 'UserController@getUser')->name('user');
@@ -61,6 +62,20 @@ Route::group(['middleware' => ['web']], function () {
         Route::prefix('rooms')->group(function () {
             Route::get('/', 'RoomController@getRooms')->name('get_rooms');
             Route::get('{id}', 'RoomController@getRoom')->name('get_room');
+        });
+
+        /*
+        | Timetable routes
+        */
+
+        Route::prefix('timetable')->group(function () {
+            Route::get('/datetime', function () {
+                date_default_timezone_set('Europe/Moscow');
+                return response()->json([
+                    'date' => date('Y-m-d'),
+                    'time' => date('H:i:s'),
+                ], 200);
+            });
         });
     });
 });
